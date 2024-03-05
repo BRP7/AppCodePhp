@@ -7,6 +7,6 @@ class Sales_Model_Quote_Customer extends Core_Model_Abstract
     {
     $this->_resourceClass = 'Sales_Model_Resource_Quote_Customer';
     $this->_collectionClass = 'Resource_Model_Resource_Collection_Quote_Customer';
-    $this->_modelClass = 'sales/quote_customer';
+    // $this->_modelClass = 'sales/quote_customer';
     }
 }

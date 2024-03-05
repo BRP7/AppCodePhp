@@ -31,6 +31,14 @@ class Core_Model_Session
         return false;
     }
 
+    // public function get($key)
+    // {
+    //     if (array_key_exists($key, $_SESSION)) {
+    //         return $_SESSION[$key];
+    //     }
+    //     return 0;
+    // }
+
     public function set($key, $value)
     {
         $_SESSION[$key] = $value;

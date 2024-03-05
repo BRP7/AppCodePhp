@@ -15,7 +15,7 @@ class Core_Model_Resource_Abstract {
     }
 
     public function getAdapter(){
-        return new Core_Model_DB_Adapter();//adapter no obj apse
+        return new Core_Model_DB_Adapter();
     }
 
     public function load($id,$column=null){
@@ -27,7 +27,7 @@ class Core_Model_Resource_Abstract {
     {
         $data = $abstract->getData();
         print_r($data);
-        print_r($this->getPrimaryKey());
+        // print_r($this->getPrimaryKey());
         if(isset($data[$this->getPrimaryKey()]) && !empty($data[$this->getPrimaryKey()])){
             unset($data[$this->getPrimaryKey()]);
             $sql = $this->editSql(

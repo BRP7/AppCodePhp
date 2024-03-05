@@ -33,21 +33,22 @@ class Sales_Model_Quote_Item extends Core_Model_Abstract
             ->getFirstItem()
         ;
 
-        if ($item) {
-            $qty = $qty + $item->getQty();
-        }
-        $this->setData(
-            [
+       $existingItem = $this->getCollection()
+            ->addFieldToFilter('quote_id', $quote->getId())
+            ->addFieldToFilter('product_id', $productId)
+            ->getFirstItem();
+
+        if($existingItem && $existingItem->getId() !== ''){
+            $existingQty = $existingItem->getQty();
+            $existingItem->addData('qty', $existingQty + $qty);
+            $existingItem->save();
+        }else{
+            $this->setData([
                 'quote_id' => $quote->getId(),
                 'product_id' => $productId,
-                'qty' => $qty,
-            ]
-        );
-        if ($item) {
-            $this->setId($item->getId());
+                'qty' => $qty
+            ]);
+            $this->save();
         }
-        $this->save();
-
-        return $this;
     }
 }

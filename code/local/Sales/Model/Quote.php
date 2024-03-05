@@ -12,7 +12,10 @@ class Sales_Model_Quote extends Core_Model_Abstract
     public function initQuote()
     {
         $quoteId = Mage::getSingleton("core/session")->get("quote_id");
-        $this->load($quoteId);
+        // var_dump($quoteId);
+        if( !empty($quoteId) ) {
+           $this->load($quoteId);
+        }
         if (!$this->getId()) {
             $quote = Mage::getModel("sales/quote")
                 ->setData(["tax_percent" => 8, "grand_total" => 0])
@@ -26,6 +29,7 @@ class Sales_Model_Quote extends Core_Model_Abstract
     }
 
     public function getItemCollection(){
+        // var_dump($this->getId());
         return Mage::getModel('sales/quote_item')->getCollection()
             ->addFieldToFilter('quote_id', $this->getId());
     }
@@ -44,6 +48,7 @@ class Sales_Model_Quote extends Core_Model_Abstract
 
     public function addProduct($request)
     {
+        // var_dump(debug_backtrace());
         $this->initQuote();
         if($this->getId()) {
             Mage::getModel("sales/quote_item")->addItem($this,$request['product_id'],$request['qty']);
