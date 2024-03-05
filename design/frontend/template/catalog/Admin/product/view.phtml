@@ -1,117 +1,93 @@
 <?php
-
-
-// Retrieve cart data from persistent storage
-// print_r($this);
-// die;
-
 $cartData = $this->getCartData();
+$id = $this->getRequest()->getQueryData('id');
 $productCollection = $this->showList();
-// $productM = Mage::getModel("catalog/product");
-// $productCollection = Mage::getModel('catalog/product')->getCollection();
-$categoryModel = Mage::getModel('catalog/category');
-$categoryNames = $categoryModel->getCategoryIdName();
 
+
+
+// print_r($this);
 ?>
-<main>
+<div class="small-container single-product">
+<?php foreach ($productCollection->getData() as $product) { ?>
+        <div class="row">
+            <div class="col-2">
 
-    <!-- <h1 id="top">Metal Shop</h1> -->
-
-    <?php foreach ($productCollection->getData() as $product) {
-        $selectedCategory = $categoryModel->getCategoryNameById($categoryNames, $product); ?>
-        <div class="card">
-            <div class="contenitore">
-                <img src="<?php echo Mage::getImagePath("banner/" . $product->getImageLink()) ?>" alt="immagine">
-                <h2 class="album">
-                    <?php echo $product->getName(); ?>
-                </h2>
-                <h3 class="band-name">
-                    <?php echo $selectedCategory; ?>
-                </h3>
-                <!-- <br> -->
-               
-                <!-- <br> -->
-                <h3 class="band-name">
-                    <?php echo $product->getSize(); ?>
-                </h3>
-                <h3 class="band-name" >
-                    <?php echo $product->getColor();?>
-                </h3>
-                <!-- <br> -->
-                <p class="band-name">
-                    <?php echo $product->getDescription() ? $product->getDescription() : ""; ?>
-                </p>
-               
-                <p class="prezzo">20,00 €</p>
-                <a href="<?php echo $this->getUrl('sales/quote/add')?>?id=<?php echo $product->getProductId() ?>" class="link">🛒</a>
-                <!-- <a href="link?id=<?php //echo $produc->getProductId()  ?>" class="link">ADD TO CART🛒</a> -->
+                <img src="<?php echo Mage::getImagePath("catalog/product/".$product->getImageLink()) ?>" alt="" width="400px" height="400px" style="float:left;" id="Productimg">
+        
+                <div class="small-img-row">
+                    <div class="small-img-col">
+                        <img src="<?php echo Mage::getImagePath("catalog/product/appleSide.png") ?>" width="100%" class="small-img">
+                    </div>
+                    <div class="small-img-col">
+                        <img src="<?php echo Mage::getImagePath("catalog/product/details.jpg") ?>" width="100%"class="small-img">
+                    </div>
+                    <div class="small-img-col">
+                        <img src="<?php echo Mage::getImagePath("catalog/product/half.png") ?>" width="100%"class="small-img">
+                    </div>
+                    <div class="small-img-col">
+                        <img src="<?php echo Mage::getImagePath("catalog/product/back.png") ?>" width="100%"class="small-img">
+                    </div>
+                </div>
+                
             </div>
-        </div>   
- <?php } ?>
+            <div class="col-2">
+                <p>Home / T-Shirt</p>
+                <h1><?php echo $product->getName(); ?></h1>
+                <h4><?php echo "₹" . $product->getPrice() ?></h4>
+                <select>
+                    <option>Select Size</option>
+                    <option>XXL</option>
+                    <option>XL</option>
+                    <option>Large</option>
+                    <option>Medium</option>
+                    <option>Small</option>
+                </select>
 
+                <select>
+                    <option>Color</option>
+                    <option>XXL</option>
+                    <option>XL</option>
+                    <option>Large</option>
+                    <option>Medium</option>
+                    <option>Small</option>
+                </select>
+                <form action="<?php echo $this->getUrl('sales/quote/add/') . '?id=' . $product->getProductId()?>">
+                <input type="text" hidden name="cart[product_id]" value="<?php echo $product->getProductId() ?>">
+                <input type="number" name="cart[qty]" value="1">
+                <input type="submit" value="submit">
+                </form>
+                <!-- <form action="<?php //echo $this->getUrl('sales/quote/update/') . '?id=' . $product->getProductId()?>">
+                <input type="text" hidden name="cart[product_id]" value="<?php echo $product->getProductId() ?>">
+                <input type="number" name="cart[qty]"  hidden>
+                <input type="submit" value="update">
+                </form> -->
+                <form action="<?php echo $this->getUrl('sales/quote/delete/') . '?id=' . $product->getProductId()?>">
+                <input type="text" hidden name="cart[product_id]" value="<?php echo $product->getProductId() ?>">
+                <input type="submit" value="delete">
+                </form>
 
+                <h3>Product Details</h3>
+                <br>
+                <p><?php echo $product->getDescription(); ?></p>
+            </div>
+        </div>
+        <?php } ?>
+    </div>
 
+    <script>
+        var Productimg = document.getElementById("Productimg");
+        var SmallImg = document.getElementsByClassName("small-img");
 
-
-
-
-
-
-
-
-
-    <!-- <aside> -->
-    <?php
-    // if (!empty($cartData)) {
-    //     echo '<h2 id="cart">🛒 Your Cart</h2>';
-    //     echo '<ul>';
-        
-        // Iterate through the outer array
-        //foreach ($cartData as $customerId => $products) {
-            // Iterate through the inner array of products for each customer
-            //foreach ($products as $productId => $product) {
-                // Check if 'id' and 'quantity' keys are set in the $product array and they are not empty
-               // if (isset($product['id'], $product['quantity']) && !empty($product['id']) && !empty($product['quantity'])) {
-                    // Display product information
-                    // echo '<li>';
-                    // echo 'Product ID: ' . $product['id'] . ' | Quantity: ' . $product['quantity'];
-                    // echo '</li>';
-                    
-                    // // Add links with product IDs only if 'id' key is set
-                    // echo '<div class="displayx">';
-                    // echo '<a href="' . $this->getUrl('sales/quote/remove') . '?id=' . $product["id"] . '" class="remove">🗑</a>';
-                    // echo '<a href="' . $this->getUrl('sales/quote/postdata') . '?id=' . $product["id"] . '" class="order">Proceed to order</a>';
-                    //echo '</div>';
-                // } else {
-                    // Handle cases where 'id' and 'quantity' keys are not set or empty
-            //echo '<li>Error: Invalid product data for Product ID ' . $productId . '</li>';
-                    // Debug: Print the contents of $product
-              
-                // }
-            // }
-        // }
-        
-        // echo '</ul>';
-    // } else {
-        //echo '<h2 id="cart">🛒 Your Cart is Empty</h2>';
-    // }
-    ?>
-<!-- </aside> -->
-
-
-
-
-
-
-<!-- </aside> -->
-
-
-
-
-
-
-
-
-    <a href="#top" id="top" class="top">🔝</a>
-
-</main>
+            SmallImg[0].onclick = function(){
+                Productimg.src = SmallImg[0].src;
+            }
+            SmallImg[1].onclick = function(){
+                Productimg.src = SmallImg[1].src;
+            }
+            SmallImg[2].onclick = function(){
+                Productimg.src = SmallImg[2].src;
+            }
+            SmallImg[3].onclick = function(){
+                Productimg.src = SmallImg[3].src;
+            }
+    </script>
