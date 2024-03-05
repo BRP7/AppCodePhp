@@ -33,16 +33,16 @@ class Sales_Model_Quote_Item extends Core_Model_Abstract
             ->getFirstItem()
         ;
 
-       $existingItem = $this->getCollection()
+        $existingItem = $this->getCollection()
             ->addFieldToFilter('quote_id', $quote->getId())
             ->addFieldToFilter('product_id', $productId)
             ->getFirstItem();
 
-        if($existingItem && $existingItem->getId() !== ''){
+        if ($existingItem && $existingItem->getId() !== '') {
             $existingQty = $existingItem->getQty();
             $existingItem->addData('qty', $existingQty + $qty);
             $existingItem->save();
-        }else{
+        } else {
             $this->setData([
                 'quote_id' => $quote->getId(),
                 'product_id' => $productId,
@@ -50,5 +50,35 @@ class Sales_Model_Quote_Item extends Core_Model_Abstract
             ]);
             $this->save();
         }
+    }
+
+    public function editItem(Sales_Model_Quote $quote, $request)
+    {
+        $item = $this->getCollection()
+            ->addFieldToFilter('quote_id', $quote->getId())
+            ->addFieldToFilter('item_id', $request['item_id'])
+            ->addFieldToFilter('product_id', $request['product_id'])
+            ->getFirstItem();
+        if ($item) {
+            $qty = $request['qty'];
+        }
+        $item->setData([
+            'item_id' => $request['item_id'],
+            'product_id' => $request['product_id'],
+            'quote_id' => $quote->getId(),
+            'qty' => $qty
+        ]);
+        $this->save();
+        return $this;
+    }
+
+    public function removeItem(Sales_Model_Quote $quote, $itemId)
+    {
+        $item = $this->getCollection()
+            ->addFieldToFilter('quote_id', $quote->getId())
+            ->addFieldToFilter('item_id', $itemId)
+            ->getFirstItem()
+            ->delete();
+        return $this;
     }
 }

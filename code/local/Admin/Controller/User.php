@@ -18,8 +18,8 @@ class Admin_Controller_User extends Core_Controller_Admin_Action
             $data = $this->getRequest()->getParams("login");
             if ($data["customer_email"] == $this->_userName) {
                 if ($data["password"] == $this->_password) {
-                    $customerId = 1;
-                    Mage::getSingleton("core/session")->set("logged_in_admin_user_id", $customerId);
+                    $adminId = 1;
+                    Mage::getSingleton("core/session")->set("logged_in_admin_user_id", $adminId);
                     $this->setRedirect("admin/user/dashboard");
                 } else {
                     $this->setRedirect("admin/user/login");
