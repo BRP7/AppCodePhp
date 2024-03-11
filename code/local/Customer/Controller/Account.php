@@ -88,8 +88,8 @@ class Customer_Controller_Account extends Core_Controller_Front_Action
         $layout = $this->getLayout();
         $this->setFormCss('dashboard');
         $child = $layout->getChild('content');
-        $login = $layout->createBlock('customer/dashboard');
-        $child->addChild('login', $login);
+        $dashboard = $layout->createBlock('customer/dashboard');
+        $child->addChild('dashboard', $dashboard);
         $layout->toHtml();
        }
     }

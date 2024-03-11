@@ -67,6 +67,7 @@ class Core_Model_DB_Adapter
     
     public function update($query)
     {
+        // print_r($query);
         $sql = mysqli_query($this->connect(), $query);
         if ($sql) {
             return TRUE;

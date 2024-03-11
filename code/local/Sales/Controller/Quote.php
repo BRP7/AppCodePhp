@@ -5,15 +5,14 @@ class Sales_Controller_Quote extends Core_Controller_Front_Action{
 
     public function addAction() {
         $data =  $this->getRequest()->getParams('cart');
-        $data = $data + ['item_id'=>20];
-        // print_r($data);
         $quote = Mage::getModel('sales/quote')->addProduct($data);
-       
-}
+    }
 
-      //$customerId = Mage::getSingleton("core/session")->get("logged_in_customer_id");
+   
+
+    //$customerId = Mage::getSingleton("core/session")->get("logged_in_customer_id");
     
-      // Check if a customer is logged in
+    // Check if a customer is logged in
     //   if ($customerId) {
     //       // Retrieve cart data from persistent storage
     //       $cartData = $this->getCartData();
@@ -36,18 +35,10 @@ class Sales_Controller_Quote extends Core_Controller_Front_Action{
     //      $this->setRedirect("customer/account/login");
     //   }
   
-    public function editAction() {
-        $this->linkActionProceed();
-    }
-    public function removeAction(){
-        $this->removeActionProceed(); 
-    }
-    
-    public function postdataAction() {  
-        $this->postdataActionProceed();
-     }
     public function deleteAction() {
-     $request = ['item_id'=> 20];
+    //  $request =  $this->getRequest()->getQueryData('id');
+     $request = ['quote_id' => $this->getRequest()->getParams('qid'),
+                    'item_id' => $this->getRequest()->getParams('id')];
      $quote = Mage::getSingleton('sales/quote')->removeProduct($request);   
     }
 

@@ -20,7 +20,7 @@ class Catalog_Model_Product extends Core_Model_Abstract
         // var_dump($this->_data);
         // var_dump($this->_data['status']);
 
-        if(isset($mapping[$this->_data['status']])){
+        if(isset($this->_data['status'])){
             return $mapping[$this->_data['status']];
         }
     }

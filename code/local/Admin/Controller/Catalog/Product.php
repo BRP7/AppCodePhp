@@ -2,7 +2,7 @@
 class Admin_Controller_Catalog_Product extends Core_Controller_Admin_Action
 {
     protected $_allowedActions = ['form'];
- 
+
 
     public function formAction()
     {
@@ -19,19 +19,18 @@ class Admin_Controller_Catalog_Product extends Core_Controller_Admin_Action
     {
         $data = $this->getRequest()->getparams("catalog_product");
         $product = Mage::getModel('catalog/product')
-            ->setData($data);
+                    ->setData($data);
         $result = $product->save();
         if ($data['product_id']) {
-            if($result){
+            if ($result) {
                 echo '<script>alert("Data updated successfully")</script>';
                 echo "<script>location.href='" . Mage::getBaseUrl() . 'admin/catalog_product/list' . "'</script>";
             }
-        }
-        else{
+        } else {
             echo '<script>alert("Data inserted successfully")</script>';
             echo "<script>location.href='" . Mage::getBaseUrl() . 'admin/catalog_product/list' . "'</script>";
         }
-        
+
     }
 
     public function deleteAction()
@@ -39,7 +38,7 @@ class Admin_Controller_Catalog_Product extends Core_Controller_Admin_Action
         $id = $this->getRequest()->getparams("id");
         $product = Mage::getModel("catalog/product")->load($id);
         $result = $product->delete();
-        if ($result){
+        if ($result) {
             echo "<script>alert('data deleted sucessfully')</script>";
             echo "<script>location.href='" . Mage::getBaseUrl() . 'admin/catalog_product/list' . "'</script>";
         }
@@ -56,8 +55,9 @@ class Admin_Controller_Catalog_Product extends Core_Controller_Admin_Action
 
     }
 
-    public function view(){
-        
+    public function view()
+    {
+
     }
 }
 

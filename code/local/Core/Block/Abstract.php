@@ -35,6 +35,7 @@ class Core_Block_Abstract {
     }
     public function setData($data){
         $this->_data = $data;
+        // print_r($this->_data);
         return $this;
         // $this->template->setData($data);
     }

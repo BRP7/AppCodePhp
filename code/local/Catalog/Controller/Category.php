@@ -4,7 +4,7 @@ class Catalog_Controller_Category extends Core_Controller_Front_Action {
     // protected   $_addToCart = [];
     public function viewAction()
     {
-        print_r($this->setFormCss("views"));
+        print_r($this->setFormCss("view"));
         $layout = $this->getLayout();
         $child = $layout->getchild('content'); //core_block_layout
         $productForm = $layout->createBlock('catalog/admin_category_list');

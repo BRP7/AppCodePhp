@@ -49,7 +49,6 @@ class Core_Model_Abstract
     public function getCollection()
     {
         $collection = new $this->_collectionClass(); //Catalog_Model_Resource_Collection_Product ano object malse
-        // print_r($collection);
         $collection->setResource($this->getResource());    //
         // $collection->setModelCLass($this->_modelClass);    //$collection->setModelClass(get_class($this));
         $collection->setModelCLass(get_class($this));    //$collection->setModelClass(get_class($this));
@@ -110,8 +109,9 @@ class Core_Model_Abstract
     }
     public function save()
     {
+        // print_r(get_class($this));
         $this->_beforeSave();
-        $this->getResource()->save($this); //get recource no object apse
+        $this->getResource()->save($this); 
         $this->_afterSave();
         return $this;
     }
@@ -119,10 +119,12 @@ class Core_Model_Abstract
     {
         //    $this->getResource();
         $this->_data = $this->getResource()->load($id, $column);
+        // print_r($this->_data);
         return $this;
     }
     public function delete()
     {
+        // echo 123;
         if ($this->getId()) {
             $this->getResource()->delete($this);
         }
