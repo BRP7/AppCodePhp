@@ -60,7 +60,7 @@ class Sales_Model_Quote_Item extends Core_Model_Abstract
                 'item_id' => $request['item_id'],
                 'product_id' => $request['product_id'],
                 'quote_id' => $quote->getId(),
-                'qty' => $qty
+                'qty' => $request['qty']
             ]);
 
         }
