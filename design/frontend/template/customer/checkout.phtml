@@ -12,70 +12,7 @@
 <body>
 <h2>Checkout Form</h2>
 <div class="row">
-  <div class="col-75">
-    <div class="container">
-      <form action="/action_page.php">
-
-        <div class="row">
-          <div class="col-50">
-            <h3>Billing Address</h3>
-            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-            <input type="text" id="fname" name="firstname" placeholder="Faraz">
-            <label for="email"><i class="fa fa-envelope"></i> Email</label>
-            <input type="text" id="email" name="email" placeholder="codewithfaraz@example.com">
-            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-            <input type="text" id="adr" name="address" placeholder="Mira Bhayandar Road">
-            <label for="city"><i class="fa fa-institution"></i> City</label>
-            <input type="text" id="city" name="city" placeholder="Mumbai">
-
-            <div class="row">
-              <div class="col-50">
-                <label for="state">State</label>
-                <input type="text" id="state" name="state" placeholder="MH">
-              </div>
-              <div class="col-50">
-                <label for="zip">Zip</label>
-                <input type="text" id="zip" name="zip" placeholder="400001">
-              </div>
-            </div>
-          </div>
-
-          <div class="col-50">
-            <h3>Payment</h3>
-            <label for="fname">Accepted Cards</label>
-            <div class="icon-container">
-              <i class="fa fa-cc-visa" style="color:navy;"></i>
-              <i class="fa fa-cc-amex" style="color:blue;"></i>
-              <i class="fa fa-cc-mastercard" style="color:red;"></i>
-              <i class="fa fa-cc-discover" style="color:orange;"></i>
-            </div>
-            <label for="cname">Name on Card</label>
-            <input type="text" id="cname" name="cardname" placeholder="Faraz">
-            <label for="ccnum">Credit card number</label>
-            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
-            <label for="expmonth">Exp Month</label>
-            <input type="text" id="expmonth" name="expmonth" placeholder="December">
-            <div class="row">
-              <div class="col-50">
-                <label for="expyear">Exp Year</label>
-                <input type="text" id="expyear" name="expyear" placeholder="2027">
-              </div>
-              <div class="col-50">
-                <label for="cvv">CVV</label>
-                <input type="text" id="cvv" name="cvv" placeholder="123">
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <label>
-          <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
-        </label>
-        <input type="submit" value="Continue to checkout" class="btn">
-      </form>
-    </div>
-  </div>
-  <div class="col-25">
+<div class="col-25">
     <div class="container">
       <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
       <?php foreach ($productItem->getData() as $product) { ?>
@@ -87,7 +24,7 @@
       <hr>
       <p>Total <span class="price" style="color:black"><b><?php echo $grandTotal->getGrandTotal()?></b></span></p>
     </div>
-  </div>
+  
 
   <div>
   <div style="margin-left:40px" class="address-show">
@@ -121,7 +58,159 @@
         });
     })
 </script>
+</div>
+</div>
+  <div class="col-75">
+    <div class="container">
+      <form action="/action_page.php">
+
+        <div class="row">
+          <div class="col-50">
+            <h3>Billing Address</h3>
+            <label for="billing_address" class="label-billing-address">Billing Address:</label>
+            <input type="text" id="billing_address" name="sales_quote_customer[billing_address]" required class="input-billing-address">
+            <label for="billing_city" class="label-billing-city">Billing City:</label>
+            <input type="text" id="billing_city" name="sales_quote_customer[billing_city]" required class="input-billing-city">
+            <label for="billing_region" class="label-billing-region">Billing Region:</label>
+            <input type="text" id="billing_region" name="sales_quote_customer[billing_region]" class="input-billing-region">
+            <label for="billing_country" class="label-billing-country">Billing Country:</label>
+            <input type="text" id="billing_country" name="sales_quote_customer[billing_country]" required class="input-billing-country">
+            <label for="billing_phone" class="label-billing-phone">Billing Phone:</label>
+            <input type="tel" id="billing_phone" name="sales_quote_customer[billing_phone]" required class="input-billing-phone">
+            <label for="billing_zip" class="label-billing-zip">Billing ZIP:</label>
+            <input type="text" id="billing_zip" name="sales_quote_customer[billing_zip]" class="input-billing-zip">
+
+
+        <input type="checkbox" id="same_as_billing" onchange="copyBillingToShipping()" class="checkbox-same-as-billing">
+        <label for="same_as_billing" class="label-same-as-billing">Same as Billing</label>
+
+        <div class="field-group">
+            <label for="shipping_address" class="label-shipping-address">Shipping Address:</label>
+            <input type="text" id="shipping_address" name="sales_quote_customer[shipping_address]" required class="input-shipping-address">
+        </div>
+
+        <div class="field-group">
+            <label for="shipping_city" class="label-shipping-city">Shipping City:</label>
+            <input type="text" id="shipping_city" name="sales_quote_customer[shipping_city]" required class="input-shipping-city">
+        </div>
+
+        <div class="field-group">
+            <label for="shipping_region" class="label-shipping-region">Shipping Region:</label>
+            <input type="text" id="shipping_region" name="sales_quote_customer[shipping_region]" class="input-shipping-region">
+        </div>
+
+        <div class="field-group">
+            <label for="shipping_country" class="label-shipping-country">Shipping Country:</label>
+            <input type="text" id="shipping_country" name="sales_quote_customer[shipping_country]" required class="input-shipping-country">
+        </div>
+
+        <div class="field-group">
+            <label for="shipping_phone" class="label-shipping-phone">Shipping Phone:</label>
+            <input type="tel" id="shipping_phone" name="sales_quote_customer[shipping_phone]" required class="input-shipping-phone">
+        </div>
+
+        <div class="field-group">
+            <label for="shipping_zip" class="label-shipping-zip">Shipping ZIP:</label>
+            <input type="text" id="shipping_zip" name="sales_quote_customer[shipping_zip]" class="input-shipping-zip">
+        </div>
+    </div>
+
+    <!-- <input type="submit" value="Submit" class="submit-button"> -->
+    
+        <input type="submit" value="Continue to checkout" class="btn">
+      </form>
+
+            <!-- <label for="email"><i class="fa fa-envelope"></i> Email</label>
+            <input type="text" id="email" name="email" placeholder="codewithfaraz@example.com">
+            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+            <input type="text" id="adr" name="address" placeholder="Mira Bhayandar Road">
+            <label for="city"><i class="fa fa-institution"></i> City</label>
+            <input type="text" id="city" name="city" placeholder="Mumbai">
+
+            <div class="row">
+              <div class="col-50">
+                <label for="state">State</label>
+                <input type="text" id="state" name="state" placeholder="MH">
+              </div>
+              <div class="col-50">
+                <label for="zip">Zip</label>
+                <input type="text" id="zip" name="zip" placeholder="400001">
+              </div> -->
+            </div>
+          </div>
+
+          <div class="col-50">
+            <!-- <h3>Payment</h3> -->
+            <!-- <label for="fname">Accepted Cards</label> -->
+            <!-- <div class="icon-container">
+              <i class="fa fa-cc-visa" style="color:navy;"></i>
+              <i class="fa fa-cc-amex" style="color:blue;"></i>
+              <i class="fa fa-cc-mastercard" style="color:red;"></i>
+              <i class="fa fa-cc-discover" style="color:orange;"></i>
+            </div> -->
+            <!-- <label for="cname">Name on Card</label>
+            <input type="text" id="cname" name="cardname" placeholder="Faraz">
+            <label for="ccnum">Credit card number</label>
+            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+            <label for="expmonth">Exp Month</label>
+            <input type="text" id="expmonth" name="expmonth" placeholder="December"> -->
+            <div class="row">
+
+            <form action="<?php echo Mage::getBaseUrl('sales/quote/save')?>" method="post" class="payment-options-form">
+    <!-- Payment Options -->
+    <h2>Payment Options</h2>
+
+    <div class="form-group">
+        <div class="field-group">
+            <label for="payment_options" class="label-payment-options">Payment Options:</label>
+            <select id="payment_options" name="sales_quote_customer[payment_options]" required class="select-payment-options">
+                <option value="Cod">Cash on Delivery (COD)</option>
+                <option value="creditcard">Credit Card</option>
+                <option value="Upi">UPI</option>
+            </select>
+        </div>
+    </div>
+
+    <input type="submit" value="Submit" class="submit-button">
+</form>
+
+              <!-- <div class="col-50">
+                <label for="expyear">Exp Year</label>
+                <input type="text" id="expyear" name="expyear" placeholder="2027">
+              </div>
+              <div class="col-50">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" name="cvv" placeholder="123">
+              </div> -->
+            </div>
+          </div>
+
+        </div>
+      
+    </div>
+  </div>
+ 
   </div>
 </div>
-</body>
-</html>
+
+
+<script>
+    function copyBillingToShipping() {
+        if (document.getElementById('same_as_billing').checked) {
+            document.getElementById('shipping_address').value = document.getElementById('billing_address').value;
+            document.getElementById('shipping_city').value = document.getElementById('billing_city').value;
+            document.getElementById('shipping_region').value = document.getElementById('billing_region').value;
+            document.getElementById('shipping_country').value = document.getElementById('billing_country').value;
+            document.getElementById('shipping_phone').value = document.getElementById('billing_phone').value;
+            document.getElementById('shipping_zip').value = document.getElementById('billing_zip').value;
+        } else {
+            // Clear shipping fields if checkbox is unchecked
+            document.getElementById('shipping_address').value = '';
+            document.getElementById('shipping_city').value = '';
+            document.getElementById('shipping_region').value = '';
+            document.getElementById('shipping_country').value = '';
+            document.getElementById('shipping_phone').value = '';
+            document.getElementById('shipping_zip').value = '';
+        }
+    }
+</script>
