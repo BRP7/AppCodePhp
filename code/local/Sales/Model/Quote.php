@@ -14,7 +14,7 @@ class Sales_Model_Quote extends Core_Model_Abstract
         $quoteId = Mage::getSingleton("core/session")->get("quote_id");
         // var_dump($quoteId);
         if (!empty($quoteId)) {
-            $this->load($quoteId);
+           $this->load($quoteId);//sales_quote
         }
         if (!$this->getId()) {
             $quote = Mage::getModel("sales/quote")
@@ -68,6 +68,26 @@ class Sales_Model_Quote extends Core_Model_Abstract
         if ($quoteId) {
             Mage::getSingleton('sales/quote_item')
                 ->removeItem($quoteId, $request['item_id']);
+        }
+
+        $this->save();
+        return $this;
+    }
+    public function checkProduct($request)
+    {
+        $customerId = Mage::getSingleton("core/session")->get("logged_in_customer_id");
+        if ($customerId) {
+            print_r($customerId);
+            $this->initQuote();
+            // $quoteId = Mage::getSingleton("core/session")->get("quote_id");
+            // $quoteId = $request['quote_id'];
+            Mage::getSingleton('sales/quote_customer')
+                ->checkoutItem($request);
+        }else{
+            // $user="customer/account/login";
+            // $url=Mage::getBaseUrl() .$user;
+            $this->setRedirect('customer/account/login');
+            // header('Location:'."http://localhost/practice/MVC/customer/account/login");
         }
 
         $this->save();

@@ -9,4 +9,9 @@ class Sales_Model_Quote_Customer extends Core_Model_Abstract
     $this->_collectionClass = 'Sales_Model_Resource_Collection_Quote_Customer';
     // $this->_modelClass = 'sales/quote_customer';
     }
+
+    public function checkoutItem($data){
+        echo "Hello";
+       print_r($data);
+    }
 }

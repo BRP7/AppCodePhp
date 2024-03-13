@@ -10,5 +10,18 @@ class Cart_Controller_index extends Core_Controller_Front_Action{
         $layout->toHtml();
         
     }
+    public function checkoutAction() {
+      
+        if($cutomerId){
+            $this->setFormCss("checkout");
+            $layout = $this->getLayout();
+            $child = $layout->getChild("content");
+            $brand = $layout->createBlock("cart/checkout")->setTemplate("customer/checkout.phtml");
+            $child->addChild('form',$brand);
+            $layout->toHtml();
+        }
+     
+        
+    }
 }
 ?>

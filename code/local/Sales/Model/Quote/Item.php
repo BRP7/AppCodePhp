@@ -18,7 +18,7 @@ class Sales_Model_Quote_Item extends Core_Model_Abstract
     protected function _beforeSave()
     {
         if ($this->getProductId()) {
-            print_r($this->getQty());
+            // print_r($this->getQty());
             $price = $this->getProduct()->getPrice();
             $this->addData('price', $price);
             $this->addData('row_total', $price * $this->getQty());
@@ -44,7 +44,7 @@ class Sales_Model_Quote_Item extends Core_Model_Abstract
                     'product_id' => $request['product_id'],
                     'qty' => $request['qty'],
                 ]
-            );
+            );//dataset for sales_quote_item 
 
         } else {
             $item = $this->getCollection()
@@ -52,10 +52,10 @@ class Sales_Model_Quote_Item extends Core_Model_Abstract
                 ->addFieldToFilter('item_id', $request['item_id'])
                 ->addFieldToFilter('product_id', $request['product_id'])
                 ->getFirstItem();
-            if ($item) {
-                $qty = $request['qty'];
-                print_r($qty);
-            }
+            // if ($item) {
+            //     $qty = $request['qty'];
+            //     // print_r($qty);
+            // }
             $this->setData([
                 'item_id' => $request['item_id'],
                 'product_id' => $request['product_id'],
